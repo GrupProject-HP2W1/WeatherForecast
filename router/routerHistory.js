@@ -1,10 +1,12 @@
 const routerHistory = require('express').Router()
 const HistoryController = require('../Controllers/HistoryController')
-const authentication = require('../middlewares/Authentication')
-const authorization = require('../middlewares/Authorization')
+const authentication = require('../middleware/authentication')
+const authorization = require('../middleware/authoritation')
 
-routerHistory.get('/', authentication, HistoryController.listAll)
-routerHistory.post('/', authentication, HistoryController.create)
-routerHistory.delete('/:id', authentication, authorization, HistoryController.delete)
+routerHistory
+    .use(authentication)
+    .get('/', authorization, HistoryController.listAll)
+    .post('/', authorization, HistoryController.create)
+    .delete('/:id', authorization, HistoryController.delete)
 
 module.exports = routerHistory
