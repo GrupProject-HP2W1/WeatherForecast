@@ -7,6 +7,8 @@ class HistoryController {
             date: new Date(),
             lat: request.body.lat,
             long: request.body.long,
+            weather: request.body.weather,
+            temperature: request.body.temperature,
             user_id: request.userData.id
         }
         History.create(newData)
