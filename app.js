@@ -1,15 +1,18 @@
+
+"use strict"
+const indexRouter = require('./router/indexRouter')
+const errorHandling = require('./middleware/errorHandling')
 const express = require('express')
+const cors = require('cors')
 const app = express()
+const port = process.env.PORT || 3001
 require('dotenv').config()
 
-const port = process.env.PORT || 3000
+app
+    .use(cors())
+    .use(express.json())
+    .use(express.urlencoded({ extended: true }))
+    .use('/', indexRouter)
+    .use(errorHandling)
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-
-app.use('/', require('./routers'))
-app.use(require('./errorHandlers/errorHandler'))
-
-app.listen(port, () => {
-    console.log('This server is running on port: ', port)
-})
+app.listen(port, () => { console.log('will be the best team and listerning on port', port) })

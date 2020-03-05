@@ -1,7 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   class History extends sequelize.Sequelize.Model {}
-
   History.init({
     city: DataTypes.STRING,
     date: DataTypes.DATE,
