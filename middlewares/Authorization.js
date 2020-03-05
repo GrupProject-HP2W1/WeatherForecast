@@ -12,11 +12,11 @@ module.exports = (request, response, next) => {
                 if(result.user_id == decoded.id){
                     next()
                 }else{
-                    throw {
+                    next({
                         status_code: 400,
                         type: 'Bad Request',
                         message: 'unauthorized user'
-                    }
+                    })
                 }
             }else{
                 next({
