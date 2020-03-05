@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE,
     lat: DataTypes.STRING,
     long: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
+    user_id: DataTypes.INTEGER,
+    weather: DataTypes.STRING,
+    temperature: DataTypes.STRING
   }, {sequelize})
 
   History.associate = function(models) {
