@@ -11,6 +11,7 @@ class HistoryController {
             temperature: request.body.temperature,
             user_id: request.userData.id
         }
+        console.log(newData)
         History.create(newData)
         .then( result => {
             response.status(201).json(result)
