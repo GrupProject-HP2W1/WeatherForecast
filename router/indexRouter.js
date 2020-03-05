@@ -5,6 +5,6 @@ const weatherRouter = require('./userRouter')
 
 Router
     .use('/user', userRouter)
-    .use('/weather', weatherRouter)
+    // .use('/weather', weatherRouter)
 
 module.exports = Router

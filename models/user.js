@@ -1,37 +1,61 @@
 'use strict';
 const bcrypt = require('bcrypt')
 
-module.exports = (sequelize, DataTypes) => {
-  class User extends sequelize.Sequelize.Model {}
+class User extends sequelize.Sequelize.Model { }
 
-  User.init({
-    name: DataTypes.STRING,
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: 'Please Enter Your Email Address'
-        }
+User.init({
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'Please Enter Your Email Address'
+      }, notEmpty: {
+        args: true,
+        msg: 'email can not be empty!'
       }
-    },
-    password: DataTypes.STRING
-  }, {
-    hooks:{
-      beforeCreate: (instance, option) => {
-        return bcrypt.hash( instance.password, 10 ).then( result => {
-          instance.password = result
-        } )
-        .catch( err => {
+    }
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      notEmpty: {
+        msg: 'Please Enter Your Email Address'
+      }, notEmpty: {
+        args: true,
+        msg: 'email can not be empty!'
+      }
+    }
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: 'Please Enter Your Email Address'
+      }, notEmpty: {
+        args: true,
+        msg: 'password can not be empty!'
+      }
+    }
+  }
+
+}, {
+  hooks: {
+    beforeCreate: (instance, option) => {
+      return bcrypt.hash(instance.password, 10).then(result => {
+        instance.password = result
+      })
+        .catch(err => {
           console.log('Error Hashing Password')
-        } )
-      }
-    },
-    sequelize
-  })
+        })
+    }
+  },
+  sequelize
+})
 
-  User.associate = function(models) {
-    User.hasMany( models.History, ({foreignKey: 'user_id'}) )
-  };
-  return User;
+User.associate = function (models) {
+  User.hasMany( models.History, ({foreignKey: 'user_id'}) )
 };
